@@ -1,7 +1,7 @@
 class Perm
 
 	def self.start
-		collection = [[1,9,1,1],[4,5,6,7],[7,8,9,10]]
+		collection = [[1,9,1,1],[4,5,6,7],[7,8,9,1]]
 		path(collection)
 	end
 
@@ -18,6 +18,7 @@ class Perm
 	end
 
 	def self.combined(collection,value,level)
+		p "level start #{level}"
 		lowest = 10000
 
 		for i in 0..collection[level].length - 1
@@ -25,6 +26,7 @@ class Perm
 			lowest = sum if sum < lowest
 		end
 		if level < collection.length - 1
+			p "level call #{level}"
 			lowest = combined(collection,lowest,level+1)
 		end
 		
