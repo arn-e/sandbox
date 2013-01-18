@@ -1,0 +1,4 @@
+## Sandbox
+
+General sandbox with a few assorted code files I'm currently working on
+This really *should* be a private repo. Consider yourself warned :)
