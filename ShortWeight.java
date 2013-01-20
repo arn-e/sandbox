@@ -8,24 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShortWeight{
+
   native int matrixWeight(int[] matrix_values, int rows, int columns);
   static {
     System.loadLibrary("matrix_weight");
   }
 
-  static public void main(String argv[]){
-    int[] matrixValues = {3, 2, 4, 8, 5, 9, 3, 6, 2};
-    int rows = 3;
-    int columns = 3;
-    
-    ShortWeight sw = new ShortWeight();
-    int lowestWeight = sw.matrixWeight(matrixValues, rows, columns);
-    System.out.println(lowestWeight);
-  }  
-
   public static void main(String[] args) {
         setPort(9000);
-        // final String filename = "./public/index.html";
 
         get(new Route("/") {
             @Override
@@ -38,8 +28,49 @@ public class ShortWeight{
         post(new Route("/"){
             @Override
             public Object handle(Request request, Response response){
-                System.out.println(request.body());
+                String[] matrix = request.body().replaceAll("[[","[").replaceAll("]]","]"); 
+                int[] matrixValues = parsedMatrix(matrix);
+                int minimumWeightPath = calculateShortestPath(matrix, rows, columns);              
+                return minimumWeightPath;
             }
         });
+    }
+
+    private static int parseMatrix(String matrixString){
+        int rows = matrixRows(matrixString);
+        int columns = matrixColumns(matrixString);
+        String[] matrixItems = matrixString.replaceAll("[","").replaceAll("]","").split(",");
+
+        int[] matrixValues = new int[matrixItems.length];
+        for (int i = 0; i < matrixItems.length; i ++){
+            try {
+                matrixValues[i] = Integer.parseInt(matrixItems[i]);
+            } catch(NumberFormatException nfe) { nfe.printStackTrace(); }
+        }
+        
+    }
+    private static int calculateShortestPath(int[] matrixValues, int rows, int columns){
+        int lowestWeight = matrixWeight(matrixValues, rows, columns);
+        return lowestWeight;
+    }
+
+    private static int matrixColumns(String matrixString){
+        int count = 0;
+        for (int i = 0; i < matrixString.length(); i ++){
+            if (matrixString.charAt(i) == "["){
+                count ++;
+            }
+        }
+        return count;
+    }
+    private static int matrixRows(String matrixString){
+        int count = 0;
+        for (int i = 0; i < matrixString.length(); i ++){
+            if (matrixString.charAt(i) == ","){
+                count ++;
+            }
+        }
+        count ++;
+        return count;
     }
 }

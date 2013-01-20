@@ -57,7 +57,6 @@ int calculated_weight(int values[], int rows, int columns)
 JNIEXPORT jint JNICALL Java_ShortWeight_matrixWeight
   (JNIEnv * env, jobject jobj, jintArray matrix_values, jint rows, jint columns)
 {
-  printf("HI I GOT HERE YO\n\n");
   jint *matrix_ptr;
   jint i, sum = 0;
 
