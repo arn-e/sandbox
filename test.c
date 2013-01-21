@@ -1,64 +1,55 @@
 #include <stdio.h>
+#include <stdlib.h>
 
-struct element {
-   	int x;
-   	int y;
-   	struct element *next;
+int *addInt(int n, int m) {
+  // int res[10];
+  // res[0] = n;
+  // res[1] = m;
+  // int (*res_ptr)[10] = malloc(sizeof res);
+  int *res_ptr = malloc(2 * sizeof(int));
+  // res_ptr = &res;
+  res_ptr[0] = n + m;
+  res_ptr[1] = n * m;
+  return res_ptr;
+}
+
+// int (*functionPtr)(int,int) = &addInt;
+
+struct struct_type {
+  char *name;
+  int x;
+  int *fake_array;
+  int *(*functionPtr)(int,int);
 };
 
-int * collect(int size, int base[], int level)
-{
-	if (level == size) { return base; }
-
-	for (int i = 1; i < size; i ++){
-		int next[] = { i, level };
-		// int first_elem = base[0];
-		int *new_base[] = { base , next };
-
-		for (int i = 0; i < 2; i ++) {
-			for (int j = 0; j < 2; j ++){
-				printf("%d", new_base[i][j]);
-						
-			}
-
-			
-		}
-		printf("\n");		
-
-		int next_level = level + 1;
-		collect(size, base, next_level);
-	}
-	// printf("%ld",sizeof(*base));
-	// printf("\n");
-	
-	return base;
-}
+// (*functionPtr) = &addInt;
 
 int main(int argc, char const *argv[])
 {
-	struct element e;
-	e.x = 0;
-	e.y = 0;
+    int x = 6;
+    int *x_ptr = &x;
 
-	int base[] = { 0, 0 };
-	collect(4, base, 1);
-	return 0;
+    struct struct_type new_struct;
+    struct struct_type *str_ptr;
+    str_ptr = &new_struct;
+
+    str_ptr->x = 5;
+    str_ptr->name = "the dude";
+    str_ptr->functionPtr = &addInt;
+    str_ptr->fake_array = malloc(3 * sizeof(int));
+    str_ptr->fake_array[0] = 1;
+    str_ptr->fake_array[1] = 2;
+    str_ptr->fake_array[2] = 3;
+    str_ptr->fake_array[3] = 4;
+    str_ptr->fake_array[3] = 5;
+    str_ptr->fake_array[3] = 6;
+
+    int *res = str_ptr->functionPtr(3,6);
+    char *res_name = str_ptr->name;
+
+    printf("%i\n", res[1]);
+    printf("hi %s", res_name);
+
+    return 0;
+
 }
-
-// int main(int argc, char const *argv[])
-// {
-	
-// 	struct account {
-// 	   	int account_number;
-// 	   	char *first_name;
-// 	   	char *last_name;
-// 	   	float balance;
-// 	};
-
-// 	struct account s;
-	
-// 	s.first_name = "hi";
-
-// 	printf("%s",s.first_name);
-// 	return 0;
-// }
