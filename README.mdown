@@ -1,7 +1,9 @@
 ## Sandbox 
 
-General sandbox with a few assorted code files I've worked on recently.  
+General sandbox containing recent learning projects  
 Personal reference repo. Feel free to look around, but it's not really anything coherent.
 
-Most of the code here is either written in C or Java, and a fair bit of it involves linking the two with the JNI.
+Includes :
 
+* Java / C / JNI
+* Node / JS
